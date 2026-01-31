@@ -56,6 +56,11 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+//    implementation("net.zetetic:android-database-sqlcipher:4.5.4")
+//    debugImplementation("net.zetetic:sqlcipher-android:4.5.4")
+
+//    implementation("androidx.sqlite:sqlite-ktx:2.4.0")
+
 
     implementation(project(":core"))
     implementation(project(":feature"))
