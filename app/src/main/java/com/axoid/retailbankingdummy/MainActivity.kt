@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.axoid.retailbankingdummy.core.security.HostileEnvironmentChecker
 import com.axoid.retailbankingdummy.feature.auth.LoginScreen
+import com.axoid.retailbankingdummy.feature.dashboard.DashboardScreen
 import com.axoid.retailbankingdummy.ui.theme.RetailBankingDummyTheme
 
 class MainActivity : ComponentActivity() {
@@ -50,10 +51,7 @@ class MainActivity : ComponentActivity() {
                         )
                     } else {
                         // After successful login, show the main content
-                        Greeting(
-                            name = "Android",
-                            modifier = Modifier.padding(innerPadding)
-                        )
+                        DashboardScreen()
                     }
                 }
             }
