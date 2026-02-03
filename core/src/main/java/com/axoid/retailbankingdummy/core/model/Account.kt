@@ -8,5 +8,6 @@ data class Account(
     @PrimaryKey val id: String,
     val type: String, // e.g., "Checking", "Savings"
     val balance: BigDecimal,
-    val accountNumber: String
+    val accountNumber: String,
+    val accountType:String
 )

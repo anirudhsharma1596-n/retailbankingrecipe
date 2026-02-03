@@ -20,9 +20,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import com.axoid.retailbankingdummy.core.security.HostileEnvironmentChecker
 import com.axoid.retailbankingdummy.feature.auth.LoginScreen
 import com.axoid.retailbankingdummy.feature.dashboard.DashboardScreen
+import com.axoid.retailbankingdummy.feature.transfer.TransferScreen
 import com.axoid.retailbankingdummy.ui.theme.RetailBankingDummyTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,22 +39,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             var hostile by remember { mutableStateOf(isHostile) }
-            var isLoggedIn by remember { mutableStateOf(false) }
-
 
             RetailBankingDummyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     if (hostile) {
                         // If the environment is hostile, show an error screen
                         HostileEnvironmentScreen(modifier = Modifier.padding(innerPadding))
-                    } else if (!isLoggedIn) {
-                        // If not logged in, show the LoginScreen
-                        LoginScreen(
-                            onLoginSuccess = { isLoggedIn = true }
-                        )
-                    } else {
-                        // After successful login, show the main content
-                        DashboardScreen()
+                    } else  {
+                        Box(modifier = Modifier.padding(innerPadding)) {
+                            AppNavigation()
+                        }
                     }
                 }
             }
@@ -77,6 +74,36 @@ fun HostileEnvironmentScreen(modifier: Modifier = Modifier) {
 // Greeting and GreetingPreview composables remain the same...
 
 
+@Composable
+fun AppNavigation() {
+    val navController = androidx.navigation.compose.rememberNavController()
+
+    NavHost(navController = navController, startDestination = "login") {
+        composable("login") {
+            LoginScreen(
+                onLoginSuccess = {
+                    navController.navigate("dashboard") {
+                        // Clear back stack so user can't go back to login
+                        popUpTo("login") { inclusive = true }
+                    }
+                }
+            )
+        }
+        composable("dashboard") {
+            DashboardScreen(
+                // When the transfer button is clicked, navigate to the "transfer" route
+                onNavigateToTransfer = {
+                    navController.navigate("transfer")
+                }
+            )
+        }
+
+        // --- ADD THIS NEW DESTINATION ---
+        composable("transfer") {
+            TransferScreen() // Our new screen is now part of the navigation graph
+        }
+    }
+}
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(

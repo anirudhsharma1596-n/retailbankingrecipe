@@ -37,9 +37,9 @@ object GithubApiProvider {
         if (request.url.encodedPath.endsWith("/user/accounts")) {
             // If the request is for our mock endpoint, intercept it
             val mockAccounts = listOf(
-                Account("1", "Checking", BigDecimal("15430.25"), "...1234"),
-                Account("2", "Savings", BigDecimal("85600.50"), "...5678"),
-                Account("3", "Credit Card", BigDecimal("-950.75"), "...4321")
+                Account("1", "Checking", BigDecimal("15430.25"), "...1234", "A"),
+                Account("2", "Savings", BigDecimal("85600.50"), "...5678","A"),
+                Account("3", "Credit Card", BigDecimal("-950.75"), "...4321","B")
             )
             val json = Gson().toJson(mockAccounts)
             val responseBody = json.toResponseBody("application/json".toMediaType())

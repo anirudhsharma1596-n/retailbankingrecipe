@@ -61,6 +61,7 @@ dependencies {
 
 //    implementation("androidx.sqlite:sqlite-ktx:2.4.0")
 
+    implementation("androidx.navigation:navigation-compose:2.8.0-beta01")
 
     implementation(project(":core"))
     implementation(project(":feature"))
